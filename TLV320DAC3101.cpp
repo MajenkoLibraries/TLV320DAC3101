@@ -12,7 +12,9 @@ void TLV320DAC3101::begin() {
     setRegister(0, 0x0d, 0x00);
     setRegister(0, 0x0e, 0x80);
     setRegister(0, 0x1b, 0b00110000);
-    setRegister(0, 0x3c, 0x0b);
+
+
+    setRegister(0, 0x3c, 25); // 0x0b); // Block 25
     setRegister(8, 0x01, 0x04);
     setRegister(0, 0x74, 0x00);
 
@@ -212,6 +214,22 @@ void TLV320DAC3101::setStereo() {
     setRegister(0, 0x3F, 0b11010100);
 }
 
+void TLV320DAC3101::beep(uint8_t vl, uint8_t vr, uint32_t freq, uint32_t duration) {
+    
+    uint32_t s = round(sin(2*PI*freq/44100)*32768);
+    uint32_t c = round(cos(2*PI*freq/44100)*32768);
 
 
+    setRegister(0, 0x47, 0x3f - (vl & 0x3F));
+    setRegister(0, 0x48, 0x3f - (vr & 0x3F));
+    setRegister(0, 0x49, duration >> 16);
+    setRegister(0, 0x4A, duration >> 8);
+    setRegister(0, 0x4B, duration);
+    setRegister(0, 0x4C, s >> 8);
+    setRegister(0, 0x4D, s);
+    setRegister(0, 0x4E, c >> 8);
+    setRegister(0, 0x4F, c);
+
+    setRegister(0, 0x47, (vl & 0x3F) | 0x80);
+}
 

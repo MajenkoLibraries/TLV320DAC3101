@@ -82,6 +82,8 @@ class TLV320DAC3101 : public DAC, public Amplifier {
         void setHeadphoneMode();
         void setLineOutMode();
 
+        void beep(uint8_t vl, uint8_t vr, uint32_t freq, uint32_t duration);
+
 //        void setHeadphoneVolume(uint8_t v);
 //        void setHeadphoneVolume(uint8_t l, uint8_t r);
 //        void setSpeakerVolume(uint8_t v);
