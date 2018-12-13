@@ -230,6 +230,6 @@ void TLV320DAC3101::beep(uint8_t vl, uint8_t vr, uint32_t freq, uint32_t duratio
     setRegister(0, 0x4E, c >> 8);
     setRegister(0, 0x4F, c);
 
-    setRegister(0, 0x47, (vl & 0x3F) | 0x80);
+    setRegister(0, 0x47, (0x3f - (vl & 0x3F)) | 0x80);
 }
 
