@@ -16,7 +16,7 @@ void TLV320DAC3101::begin() {
     setRegister(8, 0x01, 0x04);
     setRegister(0, 0x74, 0x00);
 
-    setRegister(1, 0x1f, 0x04);
+    setRegister(1, 0x1f, 0b000010100);
     setRegister(1, 0x21, 0x4e);
     setRegister(1, 0x23, 0x44);
     setRegister(1, 0x28, 0x06);
@@ -197,9 +197,20 @@ void TLV320DAC3101::setLineOutMode() {
     setRegister(1, 0x2C, 0b00000110);
 }
 
+void TLV320DAC3101::setMonoLeft() {
+    setRegister(1, 0x20, 0b10000110); // Turn on left and turn off right
+    setRegister(0, 0x3F, 0b11110000);
+}
 
+void TLV320DAC3101::setMonoRight() {
+    setRegister(1, 0x20, 0b01000110); // Turn off left and turn on right
+    setRegister(0, 0x3F, 0b11001100);
+}
 
-
+void TLV320DAC3101::setStereo() {
+    setRegister(1, 0x20, 0b11000110); // Turn on left and turn off right
+    setRegister(0, 0x3F, 0b11010100);
+}
 
 
 

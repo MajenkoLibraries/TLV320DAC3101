@@ -66,6 +66,10 @@ class TLV320DAC3101 : public DAC, public Amplifier {
         void setMid(int8_t cut);
         void setTreble(int8_t cut);
 
+        void setMonoLeft();
+        void setMonoRight();
+        void setStereo();
+
         void enable3D();
         void disable3D();
         void setWide3D();
