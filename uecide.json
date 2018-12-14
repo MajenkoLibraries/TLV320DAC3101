@@ -7,7 +7,7 @@
     "category": "Audio",
     "subcategory": "CODEC",
     "maintainer": "Matt Jenkins <matt@majenko.co.uk>",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "family": "pic32",
     "core": "chipkit",
     "install": {

@@ -22,11 +22,14 @@ class TLV320DAC3101 : public DAC, public Amplifier {
 	private:
 
         DTWI *dtwi;
+        uint32_t _sampleFrequency;
 
         reg3d _3D;
 
         void setRaw(uint8_t reg, uint8_t val);
+        void setRaw2(uint8_t reg, uint8_t val1, uint8_t val2);
         void setRegister(uint8_t page, uint8_t reg, uint8_t val);
+        void setRegister(uint8_t page, uint8_t reg, uint8_t val1, uint8_t val2);
 
         void set3D();
 
@@ -40,9 +43,23 @@ class TLV320DAC3101 : public DAC, public Amplifier {
         void updateHeadphone();
         void updateSpeaker();
 
+        void setBiquad(uint8_t base, float b0, float b1, float b2, float a0, float a1, float a2);
+
+
 	public:
-        TLV320DAC3101(DTWI *d) : dtwi(d) {}
-        TLV320DAC3101(DTWI &d) : dtwi(&d) {}
+        TLV320DAC3101(DTWI *d, uint32_t fs = 44100) : dtwi(d), _sampleFrequency(fs) {}
+        TLV320DAC3101(DTWI &d, uint32_t fs = 44100) : dtwi(&d), _sampleFrequency(fs) {}
+
+        static const uint8_t BIQUAD_A = 0x02;
+        static const uint8_t BIQUAD_B = 0x0C;
+        static const uint8_t BIQUAD_C = 0x16;
+        static const uint8_t BIQUAD_D = 0x20;
+        static const uint8_t BIQUAD_E = 0x2A;
+        static const uint8_t BIQUAD_F = 0x34;
+
+        static const uint8_t LEFT = 0x01;
+        static const uint8_t RIGHT = 0x02;
+        static const uint8_t STEREO = 0x03;
 
 		void begin();
 
@@ -83,6 +100,20 @@ class TLV320DAC3101 : public DAC, public Amplifier {
         void setLineOutMode();
 
         void beep(uint8_t vl, uint8_t vr, uint32_t freq, uint32_t duration);
+
+        void lowPassFilter(uint8_t block, uint8_t channels, uint32_t corner, float q);
+        void highPassFilter(uint8_t block, uint8_t channels, uint32_t ciorner, float q);
+        void bandPassSkirtFilter(uint8_t block, uint8_t channels, uint32_t center, float q);
+        void bandPassZeroFilter(uint8_t block, uint8_t channels, uint32_t center, float q);
+        void notchFilter(uint8_t block, uint8_t channels, uint32_t center, float q);
+        void allPassFilter(uint8_t block, uint8_t channels, uint32_t center, float q);
+        void peakingEQFilter(uint8_t block, uint8_t channels, uint32_t center, float q, float dbgain);
+        void lowShelfFilter(uint8_t block, uint8_t channels, uint32_t corner, float q, float dbgain);
+        void highShelfFilter(uint8_t block, uint8_t channels, uint32_t corner, float q, float dbgain);
+
+        void updateFilters() {
+            setRegister(8, 1, 0x05);
+        }
 
 //        void setHeadphoneVolume(uint8_t v);
 //        void setHeadphoneVolume(uint8_t l, uint8_t r);
