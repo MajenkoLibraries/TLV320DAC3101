@@ -23,6 +23,7 @@ class TLV320DAC3101 : public DAC, public Amplifier {
 
         DTWI *dtwi;
         uint32_t _sampleFrequency;
+        uint8_t _resetPin;
 
         reg3d _3D;
 
@@ -47,8 +48,8 @@ class TLV320DAC3101 : public DAC, public Amplifier {
 
 
 	public:
-        TLV320DAC3101(DTWI *d, uint32_t fs = 44100) : dtwi(d), _sampleFrequency(fs) {}
-        TLV320DAC3101(DTWI &d, uint32_t fs = 44100) : dtwi(&d), _sampleFrequency(fs) {}
+        TLV320DAC3101(DTWI *d, uint32_t fs = 44100, uint8_t res = 255) : dtwi(d), _sampleFrequency(fs), _resetPin(res) {}
+        TLV320DAC3101(DTWI &d, uint32_t fs = 44100, uint8_t res = 255) : dtwi(&d), _sampleFrequency(fs), _resetPin(res) {}
 
         static const uint8_t BIQUAD_A = 0x02;
         static const uint8_t BIQUAD_B = 0x0C;

@@ -3,8 +3,20 @@
 void TLV320DAC3101::begin() {
     dtwi->beginMaster();
 
+    delay(10);
+
+    if (_resetPin != 255) {
+        pinMode(_resetPin, OUTPUT);
+        digitalWrite(_resetPin, HIGH);
+        delay(10);
+        digitalWrite(_resetPin, LOW);
+        delay(10);
+        digitalWrite(_resetPin, HIGH);
+        delay(10);
+    }
+
     setRegister(0, 1, 1); // Soft reset
-    delay(10); // 10ms startup delay
+    delay(20); // 10ms startup delay
 
 
     setRegister(0, 0x0b, 0x81); 
