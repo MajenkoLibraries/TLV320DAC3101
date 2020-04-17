@@ -1,17 +1,1 @@
-{
-    "name": "TLV320DAC3101",
-    "provides": "TLV320DAC3101.h",
-    "license": "LICENSE.md",
-    "readme": "README.md",
-    "description": "TLV320DAC3101 DAC + Amplifier driver for chipKIT",
-    "category": "Audio",
-    "subcategory": "CODEC",
-    "maintainer": "Matt Jenkins <matt@majenko.co.uk>",
-    "version": "1.0.4",
-    "family": "pic32",
-    "core": "chipkit",
-    "install": {
-        "TLV320DAC3101.cpp": "/",
-        "TLV320DAC3101.h": "/"
-    }
-}
+{"name":"TLV320DAC3101","provides":"TLV320DAC3101.h","license":"LICENSE.md","readme":"README.md","description":"TLV320DAC3101 DAC + Amplifier driver for chipKIT","category":"Audio","subcategory":"CODEC","maintainer":"Matt Jenkins <matt@majenko.co.uk>","version":"1.0.5","family":"pic32","core":"chipkit","install":{"library.properties":"\/","src":"\/"}}
