@@ -49,14 +49,14 @@ void TLV320DAC3101::begin() {
 
     setRegister(0, 0x74, 0x00);
 
-    setRegister(1, 0x1f, 0b000010100);
+    setRegister(1, 0x1f, 0b00010100);
     setRegister(1, 0x21, 0x4e);
     setRegister(1, 0x23, 0x44);
     setRegister(1, 0x28, 0x06);
     setRegister(1, 0x29, 0x06);
     setRegister(1, 0x2A, 0x1C);
     setRegister(1, 0x2B, 0x1C);
-    setRegister(1, 0x1F, 0b11000100);
+    setRegister(1, 0x1F, 0b11010100);
     setRegister(1, 0x20, 0b11000110);
 
     setGain(0);
